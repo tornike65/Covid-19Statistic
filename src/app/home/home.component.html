@@ -1,0 +1,30 @@
+<section class="main">
+     <article>
+        <div class="info">
+            <div class="cases shadow">
+              <div>
+                <p>Coronavirus Cases</p>
+                <h2>+{{timeData[0].new_confirmed | number}}k</h2>
+                <p>{{timeData[0].confirmed | number}} Total</p>
+              </div>
+            </div>
+            <div class="recovery shadow">
+              <div>
+                <p>Recovered</p>
+                <h2 style="color: lightgreen !important;">+{{timeData[0].new_recovered | number}}k</h2>
+                <p>{{timeData[0].recovered | number}} Total</p>
+              </div>
+            </div>
+            <div class="death shadow">
+              <div>
+                <p>Death</p>
+                <h2>+{{timeData[0].new_deaths | number}}k</h2>
+                <p>{{timeData[0].deaths | number}} Total</p>
+              </div>
+            </div> 
+          </div>
+     </article>
+     <article>
+         <app-chart [chartData] = "timeData" ></app-chart>
+     </article>
+</section>

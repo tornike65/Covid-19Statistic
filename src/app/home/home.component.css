@@ -1,0 +1,60 @@
+.left {
+    height: 100%;
+}
+.info {
+    height: 150px;
+    margin: 35px 0px 20px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.info .cases{
+    width: 30%;
+    height: 100%;
+    border-top: 10px solid red;
+    border-radius: 5px;
+    background-color: #fff
+}
+
+.info .cases div{
+    padding: 16px 16px 24px;
+}
+
+.info div p{
+  color:  rgba(0, 0, 0, 0.54);
+}
+
+.info div h2{
+    color: #cc1034;
+  }
+
+.info .recovery{
+    width: 30%;
+    height: 100%;
+    border-top: 10px solid greenyellow;
+    border-radius: 5px;
+    background-color: #fff
+}
+
+.info .recovery div{
+    padding: 16px 16px 24px;
+}
+
+.info .death{
+    width: 30%;
+    height: 100%;
+    border-top: 10px solid red;
+    border-radius: 5px;
+    background-color: #fff
+}
+
+.info .death div{
+    padding: 16px 16px 24px;
+}
+
+
+
+
+
+ 
+ 

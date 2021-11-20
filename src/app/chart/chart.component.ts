@@ -1,0 +1,213 @@
+import { animation } from '@angular/animations';
+import { AfterViewInit, Component, ElementRef, Input, OnChanges, OnInit, Renderer2, SimpleChanges, ViewChild } from '@angular/core';
+import * as echarts from 'echarts';
+import { Timeline } from 'src/models/Timeline.model';
+@Component({
+  selector: 'app-chart',
+  templateUrl: './chart.component.html',
+  styleUrls: ['./chart.component.css']
+})
+export class ChartComponent implements OnInit, OnChanges, AfterViewInit {
+  @Input() chartData: Timeline[] = [];
+  @ViewChild('barChart') barChart?: ElementRef<HTMLDivElement>
+
+  constructor(private renderer: Renderer2) { }
+
+  
+  ngAfterViewInit(): void {
+    this.setStyleToChart()
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {   
+    this.checkRoute(changes.chartData.currentValue)
+  }
+
+  ngOnInit(): void {
+    this.checkRoute(this.chartData)
+  }
+
+
+
+
+  genereteLineChart(chartdata: Timeline[],mmonth?:boolean,FullTime?:boolean) {
+    var chartDom = document.getElementById('main')!;
+    var myChart = echarts.init(chartDom);
+  
+    var option;
+    option = {
+
+      color: ['#5470c6', '#91cc75', '#ee6666', '#eee6521'],
+
+      title: {
+        text: 'Covid-19 Statistic'
+      },
+
+      tooltip: {
+        trigger: 'axis'
+      },
+
+      legend: {
+        data: ['Confirm', 'Recovery', 'Death', 'ThreMonth', 'FullTime'],       
+        icon : 'rect',
+        selected: {'ThreMonth':mmonth,'FullTime':FullTime == null ? true : FullTime}
+      },
+
+      xAxis: {
+        type: 'category',
+        data: chartdata.map(x => x.date).reverse(),
+
+      },
+      yAxis: {
+        type: 'value',
+
+      },
+      series: [
+        {
+          name: 'Confirm',
+          type: 'line',
+          data: chartdata.map(x => x.confirmed).reverse(),
+          triggerEvent: true
+
+        },
+        {
+          name: 'Recovery',
+          type: 'line',
+          data: chartdata.map(x => x.recovered).reverse()
+        },
+        {
+          name: 'Death',
+          type: 'line',
+          data: chartdata.map(x => x.deaths).reverse()
+        },
+        {
+          name: 'ThreMonth',
+          type: 'line',
+          data: ''
+        },
+        {
+          name: 'FullTime',
+          type: 'line',
+          data: '',
+          
+        },
+      ]
+    };
+   var self = this;
+   myChart.on('legendselectchanged', function(params:any) {
+    self.filterData(params,myChart,chartDom,chartdata)
+  });
+
+   window.addEventListener('resize',function(){
+    myChart.resize();
+  })
+    option && myChart.setOption(option);
+  }
+
+  genereteBarChart(chartdata: Timeline[],mmonth?:boolean,FullTime?:boolean) {
+    var chartDom = document.getElementById('main2')!;
+    var myChart = echarts.init(chartDom);
+    var option;
+
+    option = {
+      color: ['#5470c6', '#91cc75', '#ee6666'],
+      title: {
+        text: 'Covid-19 Daily Statistic'
+      },
+
+      tooltip: {
+        trigger: 'axis'
+      },
+
+      legend: {
+        data: ['Confirm', 'Recovery', 'Death','ThreMonth','FullTime'],
+        selected: {'ThreMonth':mmonth,'FullTime':FullTime == null ? true : FullTime}
+      },
+
+      xAxis: {
+        type: 'category',
+        data: chartdata.map(x => x.date).reverse(),
+      },
+      yAxis: {
+        type: 'value'
+      },
+      series: [
+        {
+          name: 'Confirm',
+          type: 'bar',
+          data: chartdata.map(x => x.new_confirmed).reverse(),
+        },
+        {
+          name: 'Recovery',
+          type: 'bar',
+          data: chartdata.map(x => x.new_recovered).reverse()
+        },
+        {
+          name: 'Death',
+          type: 'bar',
+          data: chartdata.map(x => x.new_deaths).reverse()
+        },
+        {
+          name: 'ThreMonth',
+          type: 'bar',
+          data: ''
+        },
+        {
+          name: 'FullTime',
+          type: 'bar',
+          data: '',
+          
+        },
+      ]
+    };
+    var self = this;
+    myChart.on('legendselectchanged', function(params:any) {
+      self.filterData(params,myChart,chartDom,chartdata)
+    });
+
+    window.addEventListener('resize',function(){
+      myChart.resize();
+    })
+    option && myChart.setOption(option);
+  }
+
+  checkRoute(data: Timeline[]) {
+    if (window.location.href.length > 22) {
+      this.genereteBarChart(data)
+      this.genereteLineChart(data);
+    }
+    this.genereteLineChart(data);
+  }
+
+  setStyleToChart() {
+    if (window.location.href.length > 22) {
+      this.renderer.setStyle(this.barChart?.nativeElement, 'display', "block");
+    }
+    else {
+      this.renderer.setStyle(this.barChart?.nativeElement, 'display', "none");
+    }
+
+  }
+
+  filterData(params:any,myChart:echarts.ECharts,chartDom:HTMLElement,chartdata:Timeline[]){
+    var selectedMonth;
+    var selectedFull;
+    if (params.name == "ThreMonth") {
+      myChart.clear()
+      var data = chartdata.slice(0, 90);
+       selectedMonth = params.selected.ThreMonth  = true;
+       selectedFull = params.selected.FullTime  = false;
+       if(chartDom.id == "main") {this.genereteLineChart(data,selectedMonth,selectedFull);}
+       else {this.genereteBarChart(data,selectedMonth,selectedFull);}
+      
+      
+    } 
+    else if(params.name == "FullTime"){
+      myChart.clear()
+       selectedMonth = params.selected.ThreMonth  = false;
+       selectedFull = params.selected.FullTime  = true;
+       if(chartDom.id == "main") {this.genereteLineChart(this.chartData,selectedMonth,selectedFull);}
+       else {this.genereteBarChart(this.chartData,selectedMonth,selectedFull);}
+
+    }  
+  }
+}

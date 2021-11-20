@@ -1,0 +1,86 @@
+/* .list-group{
+    height: 305px;
+    overflow-y: scroll;
+    scroll-behavior: smooth;
+}
+
+.list-group li {
+    margin: 5px 3px 0px;
+    border-radius: 30px;
+    max-height: 40px;
+}
+
+.list-group li:hover{
+    background-color: #e1e0e0;
+    cursor: pointer;
+}
+*/
+.shadow{
+    box-shadow: 0 .5rem 1rem rgba(0,0,0,.15)!important;
+    width: 10%;
+    height: 100%;
+    border-radius: 5px;
+    background-color: #fff;
+    margin: 0px 5px;
+}
+
+ .form-control{
+     position: absolute;
+     width: 24%;
+    top: 15px;
+    right: 35px;
+}
+
+
+ .left {
+    height: 100%;
+}
+.info {
+    height: 150px;
+    margin: 35px 0px 20px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.info .cases{
+    width: 10%;
+    height: 100%;
+    border-top: 10px solid red;
+    border-radius: 5px;
+    background-color: #fff;
+    margin: 0px 5px;
+}
+
+.info .cases div{
+    padding: 16px 16px 24px;
+}
+
+.info div p{
+  color:  rgba(0, 0, 0, 0.54);
+}
+
+.info div h2{
+    color: #cc1034;
+  }
+
+.info .recovery{
+    width: 10%;
+    height: 100%;
+    border-top: 10px solid greenyellow;
+    border-radius: 5px;
+    background-color: #fff;
+    margin: 0px 5px;
+}
+
+
+.info .death{
+    border-top: 10px solid red;
+}
+
+.info .shadow div{
+    padding: 16px 16px 24px;
+}
+
+.info .population{
+   border-top: 10px solid rgb(36, 36, 123);
+}
