@@ -1,6 +1,24 @@
-# Covid19Statistic
+# Intern + Angular
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 12.2.10.
+This is a Covid 19 statistic project to demonstrate live data around world using Angular
+
+## Get started
+
+### Clone the repo
+
+```shell
+git clone https://github.com/tornike65/Covid-19Statistic
+cd Covid-19Statistic
+```
+
+### Install npm packages
+
+Install the `npm` packages described in the `package.json` and verify that it works:
+
+```shell
+npm install
+npm start
+```
 
 ## Development server
 
@@ -25,3 +43,7 @@ Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To u
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+
+```
+
+```

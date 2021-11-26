@@ -28,7 +28,7 @@ export class ChartComponent implements OnInit, OnChanges, AfterViewInit {
 
 
 
-
+ // line chart - ის ინიციალიზება
   genereteLineChart(chartdata: Timeline[],mmonth?:boolean,FullTime?:boolean) {
     var chartDom = document.getElementById('main')!;
     var myChart = echarts.init(chartDom);
@@ -38,17 +38,13 @@ export class ChartComponent implements OnInit, OnChanges, AfterViewInit {
 
       color: ['#5470c6', '#91cc75', '#ee6666', '#eee6521'],
 
-      title: {
-        text: 'Covid-19 Statistic'
-      },
-
       tooltip: {
         trigger: 'axis'
       },
 
       legend: {
         data: ['Confirm', 'Recovery', 'Death', 'ThreMonth', 'FullTime'],       
-        icon : 'rect',
+        itemWidth: 10,
         selected: {'ThreMonth':mmonth,'FullTime':FullTime == null ? true : FullTime}
       },
 
@@ -102,7 +98,7 @@ export class ChartComponent implements OnInit, OnChanges, AfterViewInit {
   })
     option && myChart.setOption(option);
   }
-
+  // bar chart - ის ინიციალიზება
   genereteBarChart(chartdata: Timeline[],mmonth?:boolean,FullTime?:boolean) {
     var chartDom = document.getElementById('main2')!;
     var myChart = echarts.init(chartDom);
@@ -110,9 +106,6 @@ export class ChartComponent implements OnInit, OnChanges, AfterViewInit {
 
     option = {
       color: ['#5470c6', '#91cc75', '#ee6666'],
-      title: {
-        text: 'Covid-19 Daily Statistic'
-      },
 
       tooltip: {
         trigger: 'axis'
@@ -120,6 +113,7 @@ export class ChartComponent implements OnInit, OnChanges, AfterViewInit {
 
       legend: {
         data: ['Confirm', 'Recovery', 'Death','ThreMonth','FullTime'],
+        itemWidth: 10,
         selected: {'ThreMonth':mmonth,'FullTime':FullTime == null ? true : FullTime}
       },
 
@@ -169,7 +163,8 @@ export class ChartComponent implements OnInit, OnChanges, AfterViewInit {
     })
     option && myChart.setOption(option);
   }
-
+  
+  // მიმდინარე როურის შემოწმება და chart-ის გენერაცია
   checkRoute(data: Timeline[]) {
     if (window.location.href.length > 22) {
       this.genereteBarChart(data)
@@ -178,6 +173,7 @@ export class ChartComponent implements OnInit, OnChanges, AfterViewInit {
     this.genereteLineChart(data);
   }
 
+  // chart-ისთვის სტილის მინიჭება
   setStyleToChart() {
     if (window.location.href.length > 22) {
       this.renderer.setStyle(this.barChart?.nativeElement, 'display', "block");
@@ -188,9 +184,13 @@ export class ChartComponent implements OnInit, OnChanges, AfterViewInit {
 
   }
 
+  // chart - ის მონაცემების ფილტრაცია 
+  
   filterData(params:any,myChart:echarts.ECharts,chartDom:HTMLElement,chartdata:Timeline[]){
     var selectedMonth;
     var selectedFull;
+
+    //ფილტრაცია სამ თვეზე
     if (params.name == "ThreMonth") {
       myChart.clear()
       var data = chartdata.slice(0, 90);
@@ -201,6 +201,7 @@ export class ChartComponent implements OnInit, OnChanges, AfterViewInit {
       
       
     } 
+    //ფილტრაცია მთლიან პერიოდზე
     else if(params.name == "FullTime"){
       myChart.clear()
        selectedMonth = params.selected.ThreMonth  = false;

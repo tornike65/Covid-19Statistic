@@ -56,5 +56,21 @@
 
 
 
- 
+@media screen and (max-width: 1570px) {
+  
+    .shadow div {padding:15px 15px 5px !important;}
+    
+    .info{
+        flex-wrap: wrap;
+       }
+    .shadow {
+        width: 30% !important;
+        margin-bottom: 40px !important;
+    }
+    .rec{
+     
+        margin-bottom: 250px !important;
+    }
+
+}
  

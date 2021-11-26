@@ -26,6 +26,7 @@ export class HomeComponent implements OnInit {
     this.getDataByTime()
   }
 
+  
   getDataByTime() {
     this.http.getStatisticByTime().subscribe((response: APIResponse<Timeline>) => {
       this.timeData = response.data;

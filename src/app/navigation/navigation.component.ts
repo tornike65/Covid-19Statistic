@@ -20,14 +20,15 @@ export class NavigationComponent implements OnInit {
     this.setDefaultDate();
   }
 
-  changeDate(a: any) {
+  // change ივენთით მონაცემების განახლება გადმოცემული თარიღით
+  changeDate(time: any) {
     this.http.getStatisticByTime().subscribe((response: APIResponse<Timeline>) => {
-      var index = response.data.reverse().findIndex(x => x.date === a)
+      var index = response.data.reverse().findIndex(x => x.date === time)
       this.data = response.data.slice(index);
       this.filter.changeData.emit(this.data);
     })
   }
-
+  // datepicker - ს ვანიჭებთ default მნიშვნელობას 
   setDefaultDate(){
     var date = new Date();
     var year = date.getUTCFullYear();

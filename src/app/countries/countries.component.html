@@ -1,8 +1,8 @@
 
 <section class="main">
   <select class="form-control form-control-lg" name="selectCountry" #select (change) = "selectCountry(select.value)">
-    <option value="ge" selected>Georgia</option>
-    <option *ngFor="let country of countries" [value]="country.code">{{country.name}}</option>
+    <option selected value="ge">Georgia</option>
+    <option  *ngFor="let country of countries" [value]="country.code">{{country.name}} </option>
   </select>
   <article class="rec">
      <div class="info">
