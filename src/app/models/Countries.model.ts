@@ -3,7 +3,7 @@ import { LatestData } from "./LatestData.model";
 import { Timeline } from "./Timeline.model";
 import { Today } from "./Today.model";
 
-export interface Countries {
+export interface Country {
     coordinates: Coordinates
     name: string
     code: string

@@ -1,8 +1,12 @@
-import { Component, OnInit } from '@angular/core';
-import { APIResponse } from 'src/models/APIResponse.model';
-import { Timeline } from 'src/models/Timeline.model';
-import { FilterServiceService } from 'src/services/filter-service.service';
-import { HttpService } from 'src/services/http.service';
+import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { ActivatedRoute, Params, Router } from '@angular/router';
+import { select, Store } from '@ngrx/store';
+import * as moment from 'moment';
+import { Observable } from 'rxjs';
+import { Timeline } from 'src/app/models/Timeline.model';
+import { HomePageActions } from 'src/store/actions';
+import { AppSelectors } from 'src/store/selectors';
+import { selectRouteParam, selectRouteParams } from 'src/store/selectors/router.selector';
 
 @Component({
   selector: 'app-home',
@@ -11,26 +15,29 @@ import { HttpService } from 'src/services/http.service';
 })
 
 export class HomeComponent implements OnInit {
-  timeData: Timeline[] = [];
+  timeline$ = this.store.select(AppSelectors.getTimeline);
+  statsAtDate$ = this.store.select(AppSelectors.getTimelineByDate);
+  currentDate = moment(new Date()).format('YYYY-MM-DD');
   
-  constructor(private http: HttpService, private filter: FilterServiceService) { }
+  constructor(private store:Store,private route:Router) { }
 
 
   ngOnInit(): void {
-    if (this.timeData.length < 1) {
-      this.filter.changeData.subscribe(filteredData => {
-        this.timeData = filteredData;
-      })
-    }
-
-    this.getDataByTime()
-  }
-
-  
-  getDataByTime() {
-    this.http.getStatisticByTime().subscribe((response: APIResponse<Timeline>) => {
-      this.timeData = response.data;
+    this.store.pipe(select(selectRouteParams)).subscribe((params:Params)=>{
+      if(params){
+        this.currentDate = params.date;
+        this.store.dispatch(HomePageActions.selectDate({date:params.date}))
+        this.timeline$ = this.store.select(AppSelectors.getTimelineByDateForChart)
+      } else{
+        this.store.dispatch(HomePageActions.selectDate({date: moment(new Date()).format('YYYY-MM-DD')}))
+      }
     })
+    this.store.dispatch(HomePageActions.pageLoad())
   }
 
+  changeDate(time: any) {
+    let formattedDate = (moment(time)).format('YYYY-MM-DD')
+    this.store.dispatch(HomePageActions.selectDate({ date: formattedDate }));
+    this.route.navigate(['home', formattedDate]);
+  }
 }

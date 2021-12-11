@@ -1,10 +1,3 @@
 export interface APIResponse<T> {
-  data: Array<T>;
+  data:  T;
 }
-
-
-
-
-
-
-

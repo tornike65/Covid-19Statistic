@@ -5,8 +5,9 @@ import { CountriesComponent } from './countries/countries.component';
 import { HomeComponent } from './home/home.component';
 
 const routes: Routes = [
-  {path:"" , component: HomeComponent},
-  {path:"countries" , component: CountriesComponent},
+  {path:'home/:date' , component: HomeComponent},
+  {path:'' , redirectTo : 'home/:date', pathMatch: 'full'},
+  {path:'countries/:code' , component: CountriesComponent},
 ];
 
 @NgModule({

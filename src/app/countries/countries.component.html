@@ -1,74 +1,80 @@
-
 <section class="main">
-  <select class="form-control form-control-lg" name="selectCountry" #select (change) = "selectCountry(select.value)">
-    <option selected value="ge">Georgia</option>
-    <option  *ngFor="let country of countries" [value]="country.code">{{country.name}} </option>
-  </select>
-  <article class="rec">
-     <div class="info">
-         <div class="population shadow">
-           <div>
-             <p>Population</p>
-             <h2>{{currentCountry.data.population | number }} k</h2>
-           </div>
-         </div>
-         <div class="shadow" style="border-top: 10px solid rgb(68, 11, 100);">
-          <div>
-            <p>Updated_at</p>
-            <h2>{{currentCountry.data.updated_at | date}}</h2>
-          </div>
+    <mat-form-field appearance="fill" *ngIf="countries$ | async as countries">
+        <mat-select [(value)]="countryCode">
+            <mat-option *ngFor="let country of countries" [value]="country.code" (click)="selectCountry(country.code)">
+                {{country.name}}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+    <article class="rec" *ngIf="countryByCode$ | async as countryByCode">
+        <div class="info">
+            <mat-card class="population shadow">
+
+                <mat-card-content>
+                    <p>Population</p>
+                    <h2>{{countryByCode.population | number }}</h2>
+                </mat-card-content>
+            </mat-card>
+
+            <mat-card class="shadow update_at">
+                <mat-card-content>
+                    <p>Updated_at</p>
+                    <h2>{{countryByCode.updated_at | date}}</h2>
+                </mat-card-content>
+            </mat-card>
+
+            <mat-card class="shadow death_rate">
+                <mat-card-content>
+                    <p>Death_rate</p>
+                    <h2>{{countryByCode.latest_data.calculated.death_rate | number :'1.0-2'}} %</h2>
+                </mat-card-content>
+            </mat-card>
+            <mat-card class="shadow recovery_rate">
+                <mat-card-content>
+                    <p>Recovery_rate</p>
+                    <h2>{{countryByCode.latest_data.calculated.recovery_rate | number :'1.0-2'}} %</h2>
+                </mat-card-content>
+            </mat-card>
+            <mat-card class="shadow cases">
+                <mat-card-content>
+                    <p>Cases_per_million</p>
+                    <h2>{{countryByCode.latest_data.calculated.cases_per_million_population}}</h2>
+                </mat-card-content>
+            </mat-card>
+            <mat-card class="shadow confirmed">
+                <mat-card-content>
+                    <p>Confirmed</p>
+                    <h2>{{countryByCode.latest_data.confirmed | number}} </h2>
+                </mat-card-content>
+            </mat-card>
+            <mat-card class=" shadow today_confirm ">
+                <mat-card-content>
+                    <p>Today Confirmed</p>
+                    <h2>{{countryByCode.today.confirmed | number}} </h2>
+                </mat-card-content>
+            </mat-card>
+            <mat-card class=" shadow Death">
+                <mat-card-content>
+                    <p>Death</p>
+                    <h2>{{countryByCode.latest_data.deaths | number}} </h2>
+                </mat-card-content>
+            </mat-card>
+            <mat-card class=" shadow today_death">
+                <mat-card-content>
+                    <p>Today Death</p>
+                    <h2>{{countryByCode.today.deaths | number}} </h2>
+                </mat-card-content>
+            </mat-card>
+            <mat-card class=" shadow recovery">
+                <mat-card-content>
+                    <p>Recovered</p>
+                    <h2>{{countryByCode.latest_data.recovered | number}} k</h2>
+                </mat-card-content>
+            </mat-card>
         </div>
-        <div class="shadow" style="border-top: 10px solid rgb(116, 11, 8);">
-          <div>
-            <p>Death_rate</p>
-            <h2>{{currentCountry.data.latest_data.calculated.death_rate | number :'1.0-2'}} %</h2>
-          </div>
-        </div>
-        <div class="shadow" style="border-top: 10px solid rgb(2, 87, 2);">
-          <div>
-            <p>Recovery_rate</p>
-            <h2>{{currentCountry.data.latest_data.calculated.recovery_rate | number :'1.0-2'}} %</h2>
-          </div>
-        </div>
-         <div class="shadow" style="border-top: 10px solid rgb(36, 36, 123)">
-           <div>
-             <p>Cases_per_million</p>
-             <h2>{{currentCountry.data.latest_data.calculated.cases_per_million_population}} k</h2>
-           </div>
-         </div>
-         <div class="shadow" style="border-top: 10px solid rgb(32, 32, 179)">
-           <div>
-             <p>Confirmed</p>
-             <h2>{{currentCountry.data.latest_data.confirmed | number}}  k</h2>
-           </div>
-         </div> 
-         <div class=" shadow" style="border-top: 10px solid rgb(50, 50, 226)">
-          <div>
-            <p>Today Confirmed</p>
-            <h2>{{currentCountry.data.today.confirmed | number}} +k</h2>
-          </div>
-        </div>
-        <div class=" shadow" style="border-top: 10px solid rgb(148, 21, 17);">
-          <div>
-            <p>Death</p>
-            <h2>{{currentCountry.data.latest_data.deaths | number}} +k</h2>
-          </div>
-        </div>
-        <div class=" shadow" style="border-top: 10px solid rgb(148, 21, 17);">
-          <div>
-            <p>Today Death</p>
-            <h2>{{currentCountry.data.today.deaths | number}} +k</h2>
-          </div>
-        </div>
-        <div class=" shadow" style="border-top: 10px solid rgb(7, 124, 7);">
-          <div>
-            <p>Recovered</p>
-            <h2>{{currentCountry.data.latest_data.recovered | number}} +k</h2>
-          </div>
-        </div>
-       </div>
-  </article>
-  <article>
-      <app-chart [chartData] = "timeline"></app-chart>
-  </article>
+    </article>
+
+    <article *ngIf="countryByCode$ | async as countryByCode ">
+        <app-chart [chartData]="countryByCode.timeline "></app-chart>
+    </article>
 </section>
