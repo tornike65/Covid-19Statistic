@@ -3,15 +3,15 @@ import { RouterModule, Routes } from '@angular/router';
 import * as moment from 'moment';
 import { CountriesComponent } from './countries/countries.component';
 import { HomeComponent } from './home/home.component';
-  let date = moment(new Date()).format("YYYY-MM-DD");
+let date = moment(new Date()).format('YYYY-MM-DD');
 const routes: Routes = [
-  {path:'home/:date' , component: HomeComponent},
-  {path:'' , redirectTo : `home/${date}`,pathMatch:"full"},
-  {path:'countries/:code' , component: CountriesComponent},
+  { path: 'home/:date', component: HomeComponent },
+  { path: '', redirectTo: `home/${date}`, pathMatch: 'full' },
+  { path: 'countries/:code', component: CountriesComponent },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

@@ -1,5 +1,6 @@
 import { createSelector, createFeatureSelector } from '@ngrx/store';
 import * as moment from 'moment';
+
 import { AppState } from '../states';
 
 export const appSelector = createFeatureSelector<AppState>('app');
@@ -14,19 +15,14 @@ export const getTimelineByDateForChart = createSelector(
     if (state.selectedDate === moment(new Date()).format('YYYY-MM-DD')) {
       return state.timeline;
     } else {
-      let reverseTimeline = [...state.timeline];
-      let index = reverseTimeline
-        .reverse()
-        .findIndex((x) => x.date === state.selectedDate);
+      let reverseTimeline = [...state.timeline].reverse();
+      let index = reverseTimeline.findIndex(
+        (x) => x.date === state.selectedDate
+      );
       let data = reverseTimeline.slice(index);
       return data.reverse();
     }
   }
-);
-
-export const getTimeline = createSelector(
-  appSelector,
-  (state) => state.timeline
 );
 
 export const getCountryByCode = createSelector(

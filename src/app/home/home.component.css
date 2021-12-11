@@ -20,11 +20,11 @@
   background-color: #fff;
 }
 
-.info  p {
+.info p {
   color: rgba(0, 0, 0, 0.54);
 }
 
-.info  h2 {
+.info h2 {
   color: #cc1034;
 }
 
@@ -50,6 +50,14 @@
 
 .info .death div {
   padding: 16px 16px 24px;
+}
+
+.spinner {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 10;
 }
 
 @media screen and (max-width: 1570px) {

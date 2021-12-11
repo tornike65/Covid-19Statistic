@@ -1,4 +1,5 @@
 <section class="main">
+    <mat-spinner class="spinner" *ngIf="showSpinner"></mat-spinner>
     <mat-form-field appearance="fill" *ngIf="countries$ | async as countries">
         <mat-select [(value)]="countryCode">
             <mat-option *ngFor="let country of countries" [value]="country.code" (click)="selectCountry(country.code)">

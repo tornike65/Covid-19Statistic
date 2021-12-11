@@ -1,74 +1,81 @@
 .shadow {
-    box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .15)!important;
-    width: 10%;
-    height: 100%;
-    border-radius: 5px;
-    background-color: #fff;
-    margin: 0px 5px;
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
+  width: 10%;
+  height: 100%;
+  border-radius: 5px;
+  background-color: #fff;
+  margin: 0px 5px;
+}
+
+.spinner {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 10;
 }
 
 .mat-form-field {
-    position: absolute !important;
-    top: 10px;
-    right: 35px;
+  position: absolute !important;
+  top: 10px;
+  right: 35px;
 }
 
 .info {
-    height: 150px;
-    margin: 35px 0px 20px;
-    display: flex;
-    justify-content: space-between;
+  height: 150px;
+  margin: 35px 0px 20px;
+  display: flex;
+  justify-content: space-between;
 }
 
-.info  p {
-    color: rgba(0, 0, 0, 0.54);
+.info p {
+  color: rgba(0, 0, 0, 0.54);
 }
 
-
-.info  h2 {
-    color: #cc1034;
+.info h2 {
+  color: #cc1034;
 }
 
 .info .death {
-    border-top: 10px solid red;
+  border-top: 10px solid red;
 }
 
 .info .population {
-    border-top: 10px solid rgb(36, 36, 123);
+  border-top: 10px solid rgb(36, 36, 123);
 }
 
 .info .update_at {
-    border-top: 10px solid rgb(68, 11, 100);
+  border-top: 10px solid rgb(68, 11, 100);
 }
 
 .info .death_rate {
-    border-top: 10px solid rgb(116, 11, 8);
+  border-top: 10px solid rgb(116, 11, 8);
 }
 
 .info .recovery_rate {
-    border-top: 10px solid rgb(2, 87, 2);
+  border-top: 10px solid rgb(2, 87, 2);
 }
 
 .info .cases {
-    border-top: 10px solid rgb(36, 36, 123);
+  border-top: 10px solid rgb(36, 36, 123);
 }
 
 .info .confirmed {
-    border-top: 10px solid rgb(32, 32, 179);
+  border-top: 10px solid rgb(32, 32, 179);
 }
 
 .info .today_confirm {
-    border-top: 10px solid rgb(50, 50, 226);
+  border-top: 10px solid rgb(50, 50, 226);
 }
 
 .info .Death {
-    border-top: 10px solid rgb(148, 21, 17);
+  border-top: 10px solid rgb(148, 21, 17);
 }
 
 .info .today_death {
-    border-top: 10px solid rgb(148, 21, 17);
+  border-top: 10px solid rgb(148, 21, 17);
 }
 
 .info .recovery {
-    border-top: 10px solid rgb(7, 124, 7);
+  border-top: 10px solid rgb(7, 124, 7);
 }

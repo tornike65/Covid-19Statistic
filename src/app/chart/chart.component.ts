@@ -9,13 +9,12 @@ import {
   SimpleChanges,
   ViewChild,
 } from '@angular/core';
+
 import { Params } from '@angular/router';
 import { select, Store } from '@ngrx/store';
 import * as echarts from 'echarts';
 import { Timeline } from 'src/app/models/Timeline.model';
-import {
-  selectRouteParams,
-} from '..//store/selectors/router.selector';
+import { selectRouteParams } from '..//store/selectors/router.selector';
 @Component({
   selector: 'app-chart',
   templateUrl: './chart.component.html',
