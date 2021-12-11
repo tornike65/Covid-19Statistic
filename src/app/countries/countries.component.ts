@@ -1,9 +1,9 @@
-import { AfterViewInit, Component, ElementRef, OnInit, Renderer2, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Params, Router } from '@angular/router';
 import { select, Store } from '@ngrx/store';
-import { CountryPageaActions } from 'src/store/actions';
-import { AppSelectors } from 'src/store/selectors';
-import { selectRouteParams } from 'src/store/selectors/router.selector';
+import { CountryPageaActions } from '..//store/actions';
+import { AppSelectors } from '..//store/selectors';
+import { selectRouteParams } from '..//store/selectors/router.selector';
 
 @Component({
   selector: 'app-countries',
@@ -14,7 +14,7 @@ export class CountriesComponent implements OnInit{
   countries$ = this.store.select(AppSelectors.getCountries)
   countryByCode$ = this.store.select(AppSelectors.getCountryByCode)
   countryCode = 'GE';
-  constructor(private store: Store, private router: Router,private renderer:Renderer2) { }
+  constructor(private store: Store, private router: Router) { }
 
   ngOnInit(): void {
 

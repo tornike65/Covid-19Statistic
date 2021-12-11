@@ -6,11 +6,7 @@ import {
   Renderer2,
   ViewChild,
 } from '@angular/core';
-import { Params, Router } from '@angular/router';
-import { select, Store } from '@ngrx/store';
-import { HomePageActions } from 'src/store/actions';
-import { AppSelectors } from 'src/store/selectors';
-import { selectRouteParams } from 'src/store/selectors/router.selector';
+import { Router } from '@angular/router';
 import * as moment from 'moment';
 
 @Component({

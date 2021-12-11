@@ -1,12 +1,10 @@
-import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
-import { ActivatedRoute, Params, Router } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { Params, Router } from '@angular/router';
 import { select, Store } from '@ngrx/store';
 import * as moment from 'moment';
-import { Observable } from 'rxjs';
-import { Timeline } from 'src/app/models/Timeline.model';
-import { HomePageActions } from 'src/store/actions';
-import { AppSelectors } from 'src/store/selectors';
-import { selectRouteParam, selectRouteParams } from 'src/store/selectors/router.selector';
+import { HomePageActions } from '../store/actions';
+import { AppSelectors } from '../store/selectors';
+import { selectRouteParams } from '../store/selectors/router.selector';
 
 @Component({
   selector: 'app-home',

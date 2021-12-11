@@ -1,4 +1,3 @@
-import { animation } from '@angular/animations';
 import {
   AfterViewInit,
   Component,
@@ -15,9 +14,8 @@ import { select, Store } from '@ngrx/store';
 import * as echarts from 'echarts';
 import { Timeline } from 'src/app/models/Timeline.model';
 import {
-  selectRouteParam,
   selectRouteParams,
-} from 'src/store/selectors/router.selector';
+} from '..//store/selectors/router.selector';
 @Component({
   selector: 'app-chart',
   templateUrl: './chart.component.html',

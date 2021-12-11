@@ -4,7 +4,6 @@ import { Store } from "@ngrx/store";
 import { HttpService } from "src/app/services/http.service";
 import { CoronaApiActions, CountryPageaActions, HomePageActions } from "../actions";
 import { concatMap, map, catchError } from 'rxjs/operators'
-import { Country } from "src/app/models/Countries.model";
 
 @Injectable()
 export class AppEffects {
