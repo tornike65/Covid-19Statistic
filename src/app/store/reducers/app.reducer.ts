@@ -1,10 +1,6 @@
-import { createReducer, on, State } from "@ngrx/store";
-import { Country } from "src/app/models/Countries.model";
-import { Timeline } from "src/app/models/Timeline.model";
-import state from "sweetalert/typings/modules/state";
-import { CoronaApiActions, CountryPageaActions, HomePageActions } from "../actions";
-import { selectDate, pageLoad } from '../actions/home-page.actions'
-import { AppState } from "../states";
+import { createReducer, on } from '@ngrx/store';
+import { CoronaApiActions, CountryPageaActions, HomePageActions } from '../actions';
+import { AppState } from '../states';
 
 export const initialState: AppState = {
 
@@ -12,9 +8,9 @@ export const initialState: AppState = {
   timeline: [],
   countries: [],
   country: null,
-  countryCode: "GE",
+  countryCode: 'GE',
   selectedDate:  new Date().toString(),
-  message: ""
+  message: '',
 
 
 };
@@ -32,7 +28,7 @@ export const appReducer = createReducer(
 
   on(CoronaApiActions.getCountriesSuccses, (state, { countries }) => ({ ...state, countries: countries, isLoading: false })),
   on(CoronaApiActions.getCountriesfailed, (state, { message }) => ({ ...state, message: message, isLoading: false })),
-  
+
   on(CoronaApiActions.getCountryByCodeSuccses, (state, { country }) => ({ ...state, country: country, isLoading: false })),
   on(CoronaApiActions.getCountryByCodeFailed, (state, { message }) => ({ ...state, message: message, isLoading: false })),
 

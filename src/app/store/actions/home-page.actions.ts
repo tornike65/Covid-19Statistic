@@ -1,4 +1,4 @@
-import { createAction, props } from '@ngrx/store'
+import { createAction, props } from '@ngrx/store';
 
 
 export const selectDate = createAction('[Home Page Statistic] SelectDate',

@@ -44,11 +44,10 @@ export class ChartComponent implements OnInit, OnChanges, AfterViewInit {
     mmonth?: boolean,
     FullTime?: boolean
   ) {
-    var chartDom = document.getElementById('main')!;
-    var myChart = echarts.init(chartDom);
+    const chartDom = document?.getElementById('main') as HTMLElement;
+    const myChart = echarts.init(chartDom);
 
-    var option;
-    option = {
+    const option = {
       color: ['#5470c6', '#91cc75', '#ee6666', '#eee6521'],
 
       tooltip: {
@@ -100,15 +99,14 @@ export class ChartComponent implements OnInit, OnChanges, AfterViewInit {
         },
       ],
     };
-    var self = this;
-    myChart.on('legendselectchanged', function (params: any) {
-      self.filterData(params, myChart, chartDom, chartdata);
+    myChart.on('legendselectchanged', (params: any) => {
+      this.filterData(params, myChart, chartDom, chartdata);
     });
 
     window.addEventListener('resize', function () {
       myChart.resize();
     });
-    option && myChart.setOption(option);
+    myChart.setOption(option);
   }
   // bar chart - ის ინიციალიზება
   genereteBarChart(
@@ -116,11 +114,10 @@ export class ChartComponent implements OnInit, OnChanges, AfterViewInit {
     mmonth?: boolean,
     FullTime?: boolean
   ) {
-    var chartDom = document.getElementById('main2')!;
-    var myChart = echarts.init(chartDom);
-    var option;
+    const chartDom = document?.getElementById('main2') as  HTMLElement;
+    const myChart = echarts?.init(chartDom);
 
-    option = {
+  const option = {
       color: ['#5470c6', '#91cc75', '#ee6666'],
 
       tooltip: {
@@ -171,15 +168,15 @@ export class ChartComponent implements OnInit, OnChanges, AfterViewInit {
         },
       ],
     };
-    var self = this;
-    myChart.on('legendselectchanged', function (params: any) {
-      self.filterData(params, myChart, chartDom, chartdata);
+    myChart.on('legendselectchanged', (params: any) => {
+       this.filterData(params, myChart, chartDom, chartdata);
     });
 
     window.addEventListener('resize', function () {
       myChart.resize();
     });
-    option && myChart.setOption(option);
+
+     myChart.setOption(option);
   }
 
   // მიმდინარე როურის შემოწმება და chart-ის გენერაცია
@@ -217,27 +214,25 @@ export class ChartComponent implements OnInit, OnChanges, AfterViewInit {
     chartDom: HTMLElement,
     chartdata: Timeline[]
   ) {
-    var selectedMonth;
-    var selectedFull;
+    let selectedMonth;
+    let selectedFull;
 
-    //ფილტრაცია სამ თვეზე
-    if (params.name == 'ThreMonth') {
+    // ფილტრაცია სამ თვეზე
+    if (params.name === 'ThreMonth') {
       myChart.clear();
-      var data = chartdata.slice(0, 90);
+      const data = chartdata.slice(0, 90);
       selectedMonth = params.selected.ThreMonth = true;
       selectedFull = params.selected.FullTime = false;
-      if (chartDom.id == 'main') {
+      if (chartDom.id === 'main') {
         this.genereteLineChart(data, selectedMonth, selectedFull);
       } else {
         this.genereteBarChart(data, selectedMonth, selectedFull);
       }
-    }
-    //ფილტრაცია მთლიან პერიოდზე
-    else if (params.name == 'FullTime') {
+   } else if (params.name === 'FullTime') {
       myChart.clear();
       selectedMonth = params.selected.ThreMonth = false;
       selectedFull = params.selected.FullTime = true;
-      if (chartDom.id == 'main') {
+      if (chartDom.id === 'main') {
         this.genereteLineChart(this.chartData, selectedMonth, selectedFull);
       } else {
         this.genereteBarChart(this.chartData, selectedMonth, selectedFull);

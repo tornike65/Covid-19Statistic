@@ -10,5 +10,6 @@ export class AppComponent implements OnInit {
   title = 'Covid19Statistic';
   constructor() { }
   ngOnInit(): void {
+    {}
   }
 }

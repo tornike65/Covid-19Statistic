@@ -1,5 +1,5 @@
 import { getSelectors } from '@ngrx/router-store';
- 
+
 export const {
   selectCurrentRoute, // select the current route
   selectFragment, // select the current route fragment

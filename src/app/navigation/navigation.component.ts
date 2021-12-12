@@ -1,10 +1,6 @@
 import {
-  AfterViewInit,
   Component,
-  ElementRef,
   OnInit,
-  Renderer2,
-  ViewChild,
 } from '@angular/core';
 import { Router } from '@angular/router';
 import * as moment from 'moment';
@@ -15,13 +11,15 @@ import * as moment from 'moment';
   styleUrls: ['./navigation.component.css'],
 })
 export class NavigationComponent implements OnInit {
-  constructor(private router:Router) {}
-  
+  constructor(private router: Router) {}
 
-  ngOnInit(): void {}
+
+  ngOnInit(): void {
+    {}
+  }
 
 
   homePage(){
-   this.router.navigate(['home',moment(new Date()).format('YYYY-MM-DD')])
+   this.router.navigate(['home',moment(new Date()).format('YYYY-MM-DD')]);
   }
 }

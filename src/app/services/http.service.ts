@@ -1,4 +1,4 @@
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment as env } from 'src/environments/environment';
@@ -13,7 +13,7 @@ export class HttpService {
   constructor(private httpClient: HttpClient) { }
 
   getStatisticByTime(): Observable<APIResponse<Timeline[]>> {
-    return this.httpClient.get<APIResponse<Timeline[]>>(`${env.BASE_URL}/timeline`)
+    return this.httpClient.get<APIResponse<Timeline[]>>(`${env.BASE_URL}/timeline`);
   }
 
   getCountriesInfo(): Observable<APIResponse<Country[]>> {

@@ -39,7 +39,7 @@ export class HomeComponent implements OnInit {
   // თარიღით მონაცემების განახლება
   changeDate(time: any) {
     this.showSpinner = true;
-    let formattedDate = moment(time).format('YYYY-MM-DD');
+    const formattedDate = moment(time).format('YYYY-MM-DD');
     this.store.dispatch(HomePageActions.selectDate({ date: formattedDate }));
     this.route.navigate(['home', formattedDate]);
   }

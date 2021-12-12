@@ -1,4 +1,4 @@
 export interface Today {
-    deaths: number
-    confirmed: number
+    deaths: number;
+    confirmed: number;
   }

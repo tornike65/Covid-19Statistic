@@ -1,6 +1,5 @@
 import { createSelector, createFeatureSelector } from '@ngrx/store';
 import * as moment from 'moment';
-
 import { AppState } from '../states';
 
 export const appSelector = createFeatureSelector<AppState>('app');
@@ -15,11 +14,11 @@ export const getTimelineByDateForChart = createSelector(
     if (state.selectedDate === moment(new Date()).format('YYYY-MM-DD')) {
       return state.timeline;
     } else {
-      let reverseTimeline = [...state.timeline].reverse();
-      let index = reverseTimeline.findIndex(
+      const reverseTimeline = [...state.timeline].reverse();
+      const index = reverseTimeline.findIndex(
         (x) => x.date === state.selectedDate
       );
-      let data = reverseTimeline.slice(index);
+      const data = reverseTimeline.slice(index);
       return data.reverse();
     }
   }

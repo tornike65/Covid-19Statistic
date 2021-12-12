@@ -1,9 +1,9 @@
-import { createAction, props } from '@ngrx/store'
+import { createAction, props } from '@ngrx/store';
 import { Country } from 'src/app/models/Countries.model';
 import { Timeline } from 'src/app/models/Timeline.model';
 
 export const getTimelineSuccses = createAction('[Corona Api] Get Timeline Succses',
-    props<{ timeline:Timeline[]}>()
+    props<{ timeline: Timeline[]}>()
 );
 
 export const getTimelineFailed = createAction('[Corona Api] Get Timeline  Failed',
