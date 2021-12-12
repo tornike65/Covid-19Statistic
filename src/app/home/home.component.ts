@@ -29,7 +29,7 @@ export class HomeComponent implements OnInit {
         this.store.dispatch(HomePageActions.selectDate({ date: params.date }));
 
         this.timeline$ = this.store.select(
-          AppSelectors.getTimelineByDateForChart
+          AppSelectors.getTimelineByDateForChart,
         );
         this.showSpinner = false;
       }

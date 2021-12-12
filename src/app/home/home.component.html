@@ -5,22 +5,24 @@
       <mat-card class="cases shadow">
         <mat-card-content>
           <p>Coronavirus Cases</p>
-          <h2>+{{statsAtDate.new_confirmed | number}}k</h2>
-          <p>{{statsAtDate.confirmed | number}} Total</p>
+          <h2>+{{ statsAtDate.new_confirmed | number }}k</h2>
+          <p>{{ statsAtDate.confirmed | number }} Total</p>
         </mat-card-content>
       </mat-card>
       <mat-card class="recovery shadow">
         <mat-card-content>
           <p>Recovered</p>
-          <h2 style="color: lightgreen !important;">+{{statsAtDate.new_recovered | number}}k</h2>
-          <p>{{statsAtDate.recovered | number}} Total</p>
+          <h2 style="color: lightgreen !important">
+            +{{ statsAtDate.new_recovered | number }}k
+          </h2>
+          <p>{{ statsAtDate.recovered | number }} Total</p>
         </mat-card-content>
       </mat-card>
       <mat-card class="death shadow">
         <mat-card-content>
           <p>Death</p>
-          <h2>+{{statsAtDate.new_deaths | number}}k</h2>
-          <p>{{statsAtDate.deaths | number}} Total</p>
+          <h2>+{{ statsAtDate.new_deaths | number }}k</h2>
+          <p>{{ statsAtDate.deaths | number }} Total</p>
         </mat-card-content>
       </mat-card>
     </div>
@@ -30,8 +32,12 @@
   </article>
 
   <div #date class="datetime">
-    <mat-form-field appearance="outline" >
-      <input matInput [value]="currentDate" [matDatepicker]="picker" (dateChange)="changeDate($event.value)">
+    <mat-form-field appearance="outline">
+      <input
+        matInput
+        [value]="currentDate"
+        [matDatepicker]="picker"
+        (dateChange)="changeDate($event.value)" />
       <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
       <mat-datepicker #picker></mat-datepicker>
     </mat-form-field>

@@ -1,81 +1,98 @@
 <section class="main">
-    <mat-spinner class="spinner" *ngIf="showSpinner"></mat-spinner>
-    <mat-form-field appearance="outline" *ngIf="countries$ | async as countries">
-        <mat-select [(value)]="countryCode">
-            <mat-option *ngFor="let country of countries" [value]="country.code" (click)="selectCountry(country.code)">
-                {{country.name}}
-            </mat-option>
-        </mat-select>
-    </mat-form-field>
-    <article class="rec" *ngIf="countryByCode$ | async as countryByCode">
-        <div class="info">
-            <mat-card class="population shadow">
+  <mat-spinner class="spinner" *ngIf="showSpinner"></mat-spinner>
+  <mat-form-field appearance="outline" *ngIf="countries$ | async as countries">
+    <mat-select [(value)]="countryCode">
+      <mat-option
+        *ngFor="let country of countries"
+        [value]="country.code"
+        (click)="selectCountry(country.code)">
+        {{ country.name }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <article class="rec" *ngIf="countryByCode$ | async as countryByCode">
+    <div class="info">
+      <mat-card class="population shadow">
+        <mat-card-content>
+          <p>Population</p>
+          <h2>{{ countryByCode.population | number }}</h2>
+        </mat-card-content>
+      </mat-card>
 
-                <mat-card-content>
-                    <p>Population</p>
-                    <h2>{{countryByCode.population | number }}</h2>
-                </mat-card-content>
-            </mat-card>
+      <mat-card class="shadow update_at">
+        <mat-card-content>
+          <p>Updated_at</p>
+          <h2>{{ countryByCode.updated_at | date }}</h2>
+        </mat-card-content>
+      </mat-card>
 
-            <mat-card class="shadow update_at">
-                <mat-card-content>
-                    <p>Updated_at</p>
-                    <h2>{{countryByCode.updated_at | date}}</h2>
-                </mat-card-content>
-            </mat-card>
+      <mat-card class="shadow death_rate">
+        <mat-card-content>
+          <p>Death_rate</p>
+          <h2>
+            {{
+              countryByCode.latest_data.calculated.death_rate | number: '1.0-2'
+            }}
+            %
+          </h2>
+        </mat-card-content>
+      </mat-card>
+      <mat-card class="shadow recovery_rate">
+        <mat-card-content>
+          <p>Recovery_rate</p>
+          <h2>
+            {{
+              countryByCode.latest_data.calculated.recovery_rate
+                | number: '1.0-2'
+            }}
+            %
+          </h2>
+        </mat-card-content>
+      </mat-card>
+      <mat-card class="shadow cases">
+        <mat-card-content>
+          <p>Cases_per_million</p>
+          <h2>
+            {{
+              countryByCode.latest_data.calculated.cases_per_million_population
+            }}
+          </h2>
+        </mat-card-content>
+      </mat-card>
+      <mat-card class="shadow confirmed">
+        <mat-card-content>
+          <p>Confirmed</p>
+          <h2>{{ countryByCode.latest_data.confirmed | number }}</h2>
+        </mat-card-content>
+      </mat-card>
+      <mat-card class="shadow today_confirm">
+        <mat-card-content>
+          <p>Today Confirmed</p>
+          <h2>{{ countryByCode.today.confirmed | number }}</h2>
+        </mat-card-content>
+      </mat-card>
+      <mat-card class="shadow Death">
+        <mat-card-content>
+          <p>Death</p>
+          <h2>{{ countryByCode.latest_data.deaths | number }}</h2>
+        </mat-card-content>
+      </mat-card>
+      <mat-card class="shadow today_death">
+        <mat-card-content>
+          <p>Today Death</p>
+          <h2>{{ countryByCode.today.deaths | number }}</h2>
+        </mat-card-content>
+      </mat-card>
+      <mat-card class="shadow recovery">
+        <mat-card-content>
+          <p>Recovered</p>
+          <h2>{{ countryByCode.latest_data.recovered | number }} k</h2>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </article>
 
-            <mat-card class="shadow death_rate">
-                <mat-card-content>
-                    <p>Death_rate</p>
-                    <h2>{{countryByCode.latest_data.calculated.death_rate | number :'1.0-2'}} %</h2>
-                </mat-card-content>
-            </mat-card>
-            <mat-card class="shadow recovery_rate">
-                <mat-card-content>
-                    <p>Recovery_rate</p>
-                    <h2>{{countryByCode.latest_data.calculated.recovery_rate | number :'1.0-2'}} %</h2>
-                </mat-card-content>
-            </mat-card>
-            <mat-card class="shadow cases">
-                <mat-card-content>
-                    <p>Cases_per_million</p>
-                    <h2>{{countryByCode.latest_data.calculated.cases_per_million_population}}</h2>
-                </mat-card-content>
-            </mat-card>
-            <mat-card class="shadow confirmed">
-                <mat-card-content>
-                    <p>Confirmed</p>
-                    <h2>{{countryByCode.latest_data.confirmed | number}} </h2>
-                </mat-card-content>
-            </mat-card>
-            <mat-card class=" shadow today_confirm ">
-                <mat-card-content>
-                    <p>Today Confirmed</p>
-                    <h2>{{countryByCode.today.confirmed | number}} </h2>
-                </mat-card-content>
-            </mat-card>
-            <mat-card class=" shadow Death">
-                <mat-card-content>
-                    <p>Death</p>
-                    <h2>{{countryByCode.latest_data.deaths | number}} </h2>
-                </mat-card-content>
-            </mat-card>
-            <mat-card class=" shadow today_death">
-                <mat-card-content>
-                    <p>Today Death</p>
-                    <h2>{{countryByCode.today.deaths | number}} </h2>
-                </mat-card-content>
-            </mat-card>
-            <mat-card class=" shadow recovery">
-                <mat-card-content>
-                    <p>Recovered</p>
-                    <h2>{{countryByCode.latest_data.recovered | number}} k</h2>
-                </mat-card-content>
-            </mat-card>
-        </div>
-    </article>
-
-    <article *ngIf="countryByCode$ | async as countryByCode ">
-        <app-chart [chartData]="countryByCode.timeline "></app-chart>
-    </article>
+  <article *ngIf="countryByCode$ | async as countryByCode">
+    <app-chart [chartData]="countryByCode.timeline"></app-chart>
+  </article>
 </section>

@@ -13,8 +13,12 @@
   right: 35px;
 }
 
-.datetime:hover{border-color: transparent;}
-.datetime:focus{outline: none !important;}
+.datetime:hover {
+  border-color: transparent;
+}
+.datetime:focus {
+  outline: none !important;
+}
 
 .info .cases {
   width: 30%;

@@ -19,17 +19,17 @@ export class AppEffects {
           .getStatisticByTime()
           .pipe(
             map((response) =>
-              CoronaApiActions.getTimelineSuccses({ timeline: response.data })
-            )
-          )
+              CoronaApiActions.getTimelineSuccses({ timeline: response.data }),
+            ),
+          ),
       ),
       catchError((error, caught) => {
         this.store.dispatch(
-          CoronaApiActions.getTimelineFailed({ message: error.error })
+          CoronaApiActions.getTimelineFailed({ message: error.error }),
         );
         return caught;
-      })
-    )
+      }),
+    ),
   );
 
   loadCountries$ = createEffect(() =>
@@ -40,17 +40,19 @@ export class AppEffects {
           .getCountriesInfo()
           .pipe(
             map((response) =>
-              CoronaApiActions.getCountriesSuccses({ countries: response.data })
-            )
-          )
+              CoronaApiActions.getCountriesSuccses({
+                countries: response.data,
+              }),
+            ),
+          ),
       ),
       catchError((error, caught) => {
         this.store.dispatch(
-          CoronaApiActions.getCountriesfailed({ message: error.error })
+          CoronaApiActions.getCountriesfailed({ message: error.error }),
         );
         return caught;
-      })
-    )
+      }),
+    ),
   );
 
   loadCountryByCode$ = createEffect(() =>
@@ -61,22 +63,22 @@ export class AppEffects {
           map((response) =>
             CoronaApiActions.getCountryByCodeSuccses({
               country: response.data,
-            })
-          )
-        )
+            }),
+          ),
+        ),
       ),
       catchError((error, caught) => {
         this.store.dispatch(
-          CoronaApiActions.getCountryByCodeFailed({ message: error.error })
+          CoronaApiActions.getCountryByCodeFailed({ message: error.error }),
         );
         return caught;
-      })
-    )
+      }),
+    ),
   );
 
   constructor(
     private actions$: Actions,
     private store: Store,
-    private httpService: HttpService
+    private httpService: HttpService,
   ) {}
 }

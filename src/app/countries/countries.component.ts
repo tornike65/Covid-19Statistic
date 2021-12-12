@@ -24,7 +24,7 @@ export class CountriesComponent implements OnInit {
       if (params) {
         this.countryCode = params.code;
         this.store.dispatch(
-          CountryPageaActions.selectCountry({ countryCode: params.code })
+          CountryPageaActions.selectCountry({ countryCode: params.code }),
         );
       }
       this.showSpinner = false;

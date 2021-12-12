@@ -5,7 +5,7 @@ import { AppState } from '../states';
 export const appSelector = createFeatureSelector<AppState>('app');
 
 export const getTimelineByDate = createSelector(appSelector, (state) =>
-  state.timeline.find((country) => country.date === state.selectedDate)
+  state.timeline.find((country) => country.date === state.selectedDate),
 );
 
 export const getTimelineByDateForChart = createSelector(
@@ -16,20 +16,20 @@ export const getTimelineByDateForChart = createSelector(
     } else {
       const reverseTimeline = [...state.timeline].reverse();
       const index = reverseTimeline.findIndex(
-        (x) => x.date === state.selectedDate
+        (x) => x.date === state.selectedDate,
       );
       const data = reverseTimeline.slice(index);
       return data.reverse();
     }
-  }
+  },
 );
 
 export const getCountryByCode = createSelector(
   appSelector,
-  (state) => state.country
+  (state) => state.country,
 );
 
 export const getCountries = createSelector(
   appSelector,
-  (state) => state.countries
+  (state) => state.countries,
 );

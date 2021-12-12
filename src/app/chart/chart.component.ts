@@ -42,7 +42,7 @@ export class ChartComponent implements OnInit, OnChanges, AfterViewInit {
   genereteLineChart(
     chartdata: Timeline[],
     mmonth?: boolean,
-    FullTime?: boolean
+    FullTime?: boolean,
   ) {
     const chartDom = document?.getElementById('main') as HTMLElement;
     const myChart = echarts.init(chartDom);
@@ -112,12 +112,12 @@ export class ChartComponent implements OnInit, OnChanges, AfterViewInit {
   genereteBarChart(
     chartdata: Timeline[],
     mmonth?: boolean,
-    FullTime?: boolean
+    FullTime?: boolean,
   ) {
-    const chartDom = document?.getElementById('main2') as  HTMLElement;
+    const chartDom = document?.getElementById('main2') as HTMLElement;
     const myChart = echarts?.init(chartDom);
 
-  const option = {
+    const option = {
       color: ['#5470c6', '#91cc75', '#ee6666'],
 
       tooltip: {
@@ -169,14 +169,14 @@ export class ChartComponent implements OnInit, OnChanges, AfterViewInit {
       ],
     };
     myChart.on('legendselectchanged', (params: any) => {
-       this.filterData(params, myChart, chartDom, chartdata);
+      this.filterData(params, myChart, chartDom, chartdata);
     });
 
     window.addEventListener('resize', function () {
       myChart.resize();
     });
 
-     myChart.setOption(option);
+    myChart.setOption(option);
   }
 
   // მიმდინარე როურის შემოწმება და chart-ის გენერაცია
@@ -200,7 +200,7 @@ export class ChartComponent implements OnInit, OnChanges, AfterViewInit {
         this.renderer.setStyle(
           this.barChart?.nativeElement,
           'display',
-          'block'
+          'block',
         );
       }
     });
@@ -212,7 +212,7 @@ export class ChartComponent implements OnInit, OnChanges, AfterViewInit {
     params: any,
     myChart: echarts.ECharts,
     chartDom: HTMLElement,
-    chartdata: Timeline[]
+    chartdata: Timeline[],
   ) {
     let selectedMonth;
     let selectedFull;
@@ -228,7 +228,7 @@ export class ChartComponent implements OnInit, OnChanges, AfterViewInit {
       } else {
         this.genereteBarChart(data, selectedMonth, selectedFull);
       }
-   } else if (params.name === 'FullTime') {
+    } else if (params.name === 'FullTime') {
       myChart.clear();
       selectedMonth = params.selected.ThreMonth = false;
       selectedFull = params.selected.FullTime = true;
