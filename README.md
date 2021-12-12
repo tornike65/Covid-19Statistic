@@ -1,4 +1,3 @@
-
 This is a Covid 19 statistic project to demonstrate live data around world using Angular
 
 ## Get started

@@ -1,36 +1,43 @@
 import { Component, OnInit } from '@angular/core';
-import { APIResponse } from 'src/models/APIResponse.model';
-import { Timeline } from 'src/models/Timeline.model';
-import { FilterServiceService } from 'src/services/filter-service.service';
-import { HttpService } from 'src/services/http.service';
+import { Params, Router } from '@angular/router';
+import { select, Store } from '@ngrx/store';
+import * as moment from 'moment';
+import { Observable } from 'rxjs';
+import { Timeline } from '../models/Timeline.model';
+import { HomePageActions } from '../store/actions';
+import { AppSelectors } from '../store/selectors';
+import { selectRouteParams } from '../store/selectors/router.selector';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css']
+  styleUrls: ['./home.component.css'],
 })
-
 export class HomeComponent implements OnInit {
-  timeData: Timeline[] = [];
-  
-  constructor(private http: HttpService, private filter: FilterServiceService) { }
-
+  timeline$?: Observable<Timeline[]>;
+  statsAtDate$ = this.store.select(AppSelectors.selectTimelineByDate);
+  currentDate?: string;
+  loader$ = this.store.select(AppSelectors.selectLoadingStatus);
+  constructor(private store: Store, private route: Router) {}
 
   ngOnInit(): void {
-    if (this.timeData.length < 1) {
-      this.filter.changeData.subscribe(filteredData => {
-        this.timeData = filteredData;
-      })
-    }
+    this.store.dispatch(HomePageActions.pageLoad());
+    // მიმდინარე როუტიდან პარამეტრის ამოღება
+    this.store.pipe(select(selectRouteParams)).subscribe((params: Params) => {
+      if (params) {
+        this.currentDate = params.date;
+        this.store.dispatch(HomePageActions.selectDate({ date: params.date }));
 
-    this.getDataByTime()
+        this.timeline$ = this.store.select(
+          AppSelectors.selectTimelineByDateForChart,
+        );
+      }
+    });
   }
 
-  
-  getDataByTime() {
-    this.http.getStatisticByTime().subscribe((response: APIResponse<Timeline>) => {
-      this.timeData = response.data;
-    })
+  // თარიღით მონაცემების განახლება
+  changeDate(time: any) {
+    const formattedDate = moment(time).format('YYYY-MM-DD');
+    this.route.navigate(['home', formattedDate]);
   }
-
 }

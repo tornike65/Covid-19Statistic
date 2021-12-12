@@ -1,50 +1,42 @@
-import { AfterViewInit, Component,OnInit,} from '@angular/core';
-import { APIResponse } from 'src/models/APIResponse.model';
-import { Countries } from 'src/models/Countries.model';
-import { Timeline } from 'src/models/Timeline.model';
-import { HttpService } from 'src/services/http.service';
+import { Component, OnInit } from '@angular/core';
+import { Params, Router } from '@angular/router';
+import { select, Store } from '@ngrx/store';
+import { CountryPageaActions } from '..//store/actions';
+import { AppSelectors } from '..//store/selectors';
+import { selectRouteParams } from '..//store/selectors/router.selector';
 
 @Component({
   selector: 'app-countries',
   templateUrl: './countries.component.html',
-  styleUrls: ['./countries.component.css']
+  styleUrls: ['./countries.component.css'],
 })
 export class CountriesComponent implements OnInit {
+  countries$ = this.store.select(AppSelectors.selectCountries);
+  countryByCode$ = this.store.select(AppSelectors.selectCountryByCode);
+  countryCode = 'GE';
+  showSpinner = false;
+  constructor(private store: Store, private router: Router) {}
 
-  countries: Countries[] = [];
-  timeline: Timeline[] = [];
-  currentCountry?:any;
-
-  constructor(private http: HttpService) { }
   ngOnInit(): void {
-   this.defaultCountry("ge")
-    this.getCountries();
+    this.showSpinner = true;
+    // მიმდინარე როუტიდან პარამეტრის ამოღება
+    this.store.pipe(select(selectRouteParams)).subscribe((params: Params) => {
+      if (params) {
+        this.countryCode = params.code;
+        this.store.dispatch(
+          CountryPageaActions.selectCountry({ countryCode: params.code }),
+        );
+      }
+      this.showSpinner = false;
+    });
+    this.store.dispatch(CountryPageaActions.pageLoad());
   }
-
-
-  // ქვეყნების მონაცემები, ანბანით სორტირებული
-  getCountries() {
-    this.http.getCountriesInfo().subscribe((response: APIResponse<Countries>) => {
-      var index = response.data.reverse().findIndex(x => x.code == "GE")
-      response.data.splice(index,1);
-      this.countries = response.data.sort((a,b) => (a.name > b.name ? 1 : -1))
-    })
-  }
-
 
   // change ივენთით მონაცემების განახლება გადმოცემული ქვეყნით
   selectCountry(selectedValue: string) {
-    this.http.getcountryByCode(selectedValue).subscribe((response: Countries) => {
-      this.currentCountry = response;
-      this.timeline = this.currentCountry.data.timeline;
-    })
+    this.store.dispatch(
+      CountryPageaActions.selectCountry({ countryCode: selectedValue }),
+    );
+     this.router.navigate(['countries', selectedValue]);
   }
-   
-  defaultCountry(selectedValue:string){
-    this.http.getcountryByCode(selectedValue).subscribe((response: Countries) => {
-      this.currentCountry = response;
-      this.timeline = this.currentCountry.data.timeline;
-    })
-  }
-
 }
