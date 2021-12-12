@@ -22,6 +22,7 @@ export class CountriesComponent implements OnInit {
     // მიმდინარე როუტიდან პარამეტრის ამოღება
     this.store.pipe(select(selectRouteParams)).subscribe((params: Params) => {
       if (params) {
+        this.countryCode = params.code;
         this.store.dispatch(
           CountryPageaActions.selectCountry({ countryCode: params.code })
         );

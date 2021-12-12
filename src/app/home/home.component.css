@@ -12,6 +12,10 @@
   top: 10px;
   right: 35px;
 }
+
+.datetime:hover{border-color: transparent;}
+.datetime:focus{outline: none !important;}
+
 .info .cases {
   width: 30%;
   height: 100%;

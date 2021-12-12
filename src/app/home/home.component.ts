@@ -25,6 +25,7 @@ export class HomeComponent implements OnInit {
     // მიმდინარე როუტიდან პარამეტრის ამოღება
     this.store.pipe(select(selectRouteParams)).subscribe((params: Params) => {
       if (params) {
+        this.currentDate = params.date;
         this.store.dispatch(HomePageActions.selectDate({ date: params.date }));
 
         this.timeline$ = this.store.select(
@@ -40,7 +41,7 @@ export class HomeComponent implements OnInit {
   changeDate(time: any) {
     this.showSpinner = true;
     const formattedDate = moment(time).format('YYYY-MM-DD');
-    this.store.dispatch(HomePageActions.selectDate({ date: formattedDate }));
+    this.store.dispatch(HomePageActions.selectDate({ date: time }));
     this.route.navigate(['home', formattedDate]);
   }
 }
