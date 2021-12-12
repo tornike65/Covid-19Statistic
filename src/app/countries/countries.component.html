@@ -1,7 +1,7 @@
 <section class="main">
   <mat-spinner class="spinner" *ngIf="showSpinner"></mat-spinner>
-  <mat-form-field appearance="outline" *ngIf="countries$ | async as countries">
-    <mat-select [(value)]="countryCode">
+  <mat-form-field class="date-select-input" appearance="outline" *ngIf="countries$ | async as countries">
+    <mat-select [value]="countryCode">
       <mat-option
         *ngFor="let country of countries"
         [value]="country.code"
@@ -15,7 +15,7 @@
       <mat-card class="population shadow">
         <mat-card-content>
           <p>Population</p>
-          <h2>{{ countryByCode.population | number }}</h2>
+          <h2>{{ countryByCode.population | thousandSuffix:2 }}</h2>
         </mat-card-content>
       </mat-card>
 
@@ -62,31 +62,31 @@
       <mat-card class="shadow confirmed">
         <mat-card-content>
           <p>Confirmed</p>
-          <h2>{{ countryByCode.latest_data.confirmed | number }}</h2>
+          <h2>{{ countryByCode.latest_data.confirmed | thousandSuffix:2 }}</h2>
         </mat-card-content>
       </mat-card>
       <mat-card class="shadow today_confirm">
         <mat-card-content>
           <p>Today Confirmed</p>
-          <h2>{{ countryByCode.today.confirmed | number }}</h2>
+          <h2>{{ countryByCode.today.confirmed | thousandSuffix:2 }}</h2>
         </mat-card-content>
       </mat-card>
       <mat-card class="shadow Death">
         <mat-card-content>
           <p>Death</p>
-          <h2>{{ countryByCode.latest_data.deaths | number }}</h2>
+          <h2>{{ countryByCode.latest_data.deaths | thousandSuffix:2 }}</h2>
         </mat-card-content>
       </mat-card>
       <mat-card class="shadow today_death">
         <mat-card-content>
           <p>Today Death</p>
-          <h2>{{ countryByCode.today.deaths | number }}</h2>
+          <h2>{{ countryByCode.today.deaths | thousandSuffix:2 }}</h2>
         </mat-card-content>
       </mat-card>
       <mat-card class="shadow recovery">
         <mat-card-content>
           <p>Recovered</p>
-          <h2>{{ countryByCode.latest_data.recovered | number }} k</h2>
+          <h2>{{ countryByCode.latest_data.recovered | thousandSuffix:2 }}</h2>
         </mat-card-content>
       </mat-card>
     </div>

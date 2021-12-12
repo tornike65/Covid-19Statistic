@@ -15,13 +15,13 @@ import { selectRouteParams } from '../store/selectors/router.selector';
 })
 export class HomeComponent implements OnInit {
   timeline$?: Observable<Timeline[]>;
-  statsAtDate$ = this.store.select(AppSelectors.getTimelineByDate);
-  currentDate = moment(new Date()).format('YYYY-MM-DD');
-  showSpinner = false;
+  statsAtDate$ = this.store.select(AppSelectors.selectTimelineByDate);
+  currentDate?: string;
+  loader$ = this.store.select(AppSelectors.selectLoadingStatus);
   constructor(private store: Store, private route: Router) {}
 
   ngOnInit(): void {
-    this.showSpinner = true;
+    this.store.dispatch(HomePageActions.pageLoad());
     // მიმდინარე როუტიდან პარამეტრის ამოღება
     this.store.pipe(select(selectRouteParams)).subscribe((params: Params) => {
       if (params) {
@@ -29,19 +29,15 @@ export class HomeComponent implements OnInit {
         this.store.dispatch(HomePageActions.selectDate({ date: params.date }));
 
         this.timeline$ = this.store.select(
-          AppSelectors.getTimelineByDateForChart,
+          AppSelectors.selectTimelineByDateForChart,
         );
-        this.showSpinner = false;
       }
     });
-    this.store.dispatch(HomePageActions.pageLoad());
   }
 
   // თარიღით მონაცემების განახლება
   changeDate(time: any) {
-    this.showSpinner = true;
     const formattedDate = moment(time).format('YYYY-MM-DD');
-    this.store.dispatch(HomePageActions.selectDate({ date: time }));
     this.route.navigate(['home', formattedDate]);
   }
 }

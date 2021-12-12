@@ -1,28 +1,30 @@
 <section class="main">
-  <mat-spinner class="spinner" *ngIf="showSpinner"></mat-spinner>
+  <div class="loader" *ngIf="loader$ | async as loader">
+    <mat-spinner class="spinner" *ngIf="loader" ></mat-spinner>
+  </div>
   <article *ngIf="statsAtDate$ | async as statsAtDate">
     <div class="info">
       <mat-card class="cases shadow">
         <mat-card-content>
           <p>Coronavirus Cases</p>
-          <h2>+{{ statsAtDate.new_confirmed | number }}k</h2>
-          <p>{{ statsAtDate.confirmed | number }} Total</p>
+          <h2>+  {{ statsAtDate.new_confirmed  | thousandSuffix:2 }}</h2>
+          <p>{{ statsAtDate.confirmed | thousandSuffix:2 }} Total</p>
         </mat-card-content>
       </mat-card>
       <mat-card class="recovery shadow">
         <mat-card-content>
           <p>Recovered</p>
           <h2 style="color: lightgreen !important">
-            +{{ statsAtDate.new_recovered | number }}k
+            + {{ statsAtDate.new_recovered | thousandSuffix:2 }}
           </h2>
-          <p>{{ statsAtDate.recovered | number }} Total</p>
+          <p>{{ statsAtDate.recovered | thousandSuffix:2 }} Total</p>
         </mat-card-content>
       </mat-card>
       <mat-card class="death shadow">
         <mat-card-content>
           <p>Death</p>
-          <h2>+{{ statsAtDate.new_deaths | number }}k</h2>
-          <p>{{ statsAtDate.deaths | number }} Total</p>
+          <h2>+ {{ statsAtDate.new_deaths | thousandSuffix:2 }}</h2>
+          <p>{{ statsAtDate.deaths | thousandSuffix:2 }} Total</p>
         </mat-card-content>
       </mat-card>
     </div>
@@ -31,8 +33,8 @@
     <app-chart [chartData]="timeline"></app-chart>
   </article>
 
-  <div #date class="datetime">
-    <mat-form-field appearance="outline">
+  <div class="datetime">
+    <mat-form-field appearance="outline" class="date-select-input">
       <input
         matInput
         [value]="currentDate"

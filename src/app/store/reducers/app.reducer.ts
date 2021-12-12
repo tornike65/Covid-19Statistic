@@ -22,6 +22,7 @@ export const appReducer = createReducer(
   on(HomePageActions.selectDate, (state, { date }) => ({
     ...state,
     selectedDate: date,
+    isLoading: false,
   })),
 
   on(CountryPageaActions.pageLoad, (state) => ({ ...state, isLoading: true })),
@@ -30,9 +31,9 @@ export const appReducer = createReducer(
     countryCode: countryCode,
   })),
 
-  on(CoronaApiActions.getTimelineSuccses, (state, { timeline }) => ({
+  on(CoronaApiActions.getTimelineSuccsess, (state, { timeline }) => ({
     ...state,
-    timeline: timeline,
+    timeline: [...timeline].reverse(),
     isLoading: false,
   })),
   on(CoronaApiActions.getTimelineFailed, (state, { message }) => ({
@@ -41,10 +42,10 @@ export const appReducer = createReducer(
     isLoading: false,
   })),
 
-  on(CoronaApiActions.getCountriesSuccses, (state, { countries }) => ({
+  on(CoronaApiActions.getCountriesSuccsess, (state, { countries }) => ({
     ...state,
     countries: countries,
-    isLoading: false,
+    isLoading: false
   })),
   on(CoronaApiActions.getCountriesfailed, (state, { message }) => ({
     ...state,
@@ -52,7 +53,7 @@ export const appReducer = createReducer(
     isLoading: false,
   })),
 
-  on(CoronaApiActions.getCountryByCodeSuccses, (state, { country }) => ({
+  on(CoronaApiActions.getCountryByCodeSuccsess, (state, { country }) => ({
     ...state,
     country: country,
     isLoading: false,

@@ -11,8 +11,8 @@ import { selectRouteParams } from '..//store/selectors/router.selector';
   styleUrls: ['./countries.component.css'],
 })
 export class CountriesComponent implements OnInit {
-  countries$ = this.store.select(AppSelectors.getCountries);
-  countryByCode$ = this.store.select(AppSelectors.getCountryByCode);
+  countries$ = this.store.select(AppSelectors.selectCountries);
+  countryByCode$ = this.store.select(AppSelectors.selectCountryByCode);
   countryCode = 'GE';
   showSpinner = false;
   constructor(private store: Store, private router: Router) {}
@@ -34,7 +34,9 @@ export class CountriesComponent implements OnInit {
 
   // change ივენთით მონაცემების განახლება გადმოცემული ქვეყნით
   selectCountry(selectedValue: string) {
-    this.showSpinner = true;
-    this.router.navigate(['countries', selectedValue]);
+    this.store.dispatch(
+      CountryPageaActions.selectCountry({ countryCode: selectedValue }),
+    );
+     this.router.navigate(['countries', selectedValue]);
   }
 }

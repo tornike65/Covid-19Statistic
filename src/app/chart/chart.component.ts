@@ -13,7 +13,7 @@ import {
 import { Params } from '@angular/router';
 import { select, Store } from '@ngrx/store';
 import * as echarts from 'echarts';
-import { Timeline } from 'src/app/models/Timeline.model';
+import { Timeline } from '../models/Timeline.model';
 import { selectRouteParams } from '..//store/selectors/router.selector';
 @Component({
   selector: 'app-chart',
@@ -55,17 +55,17 @@ export class ChartComponent implements OnInit, OnChanges, AfterViewInit {
       },
 
       legend: {
-        data: ['Confirm', 'Recovery', 'Death', 'ThreMonth', 'FullTime'],
+        data: ['Confirm', 'Recovery', 'Death', 'ThreeMonths', 'FullTime'],
         itemWidth: 10,
         selected: {
-          ThreMonth: mmonth,
+          ThreeMonths: mmonth,
           FullTime: FullTime == null ? true : FullTime,
         },
       },
 
       xAxis: {
         type: 'category',
-        data: chartdata.map((x) => x.date).reverse(),
+        data: chartdata.map((x) => x.date),
       },
       yAxis: {
         type: 'value',
@@ -74,21 +74,21 @@ export class ChartComponent implements OnInit, OnChanges, AfterViewInit {
         {
           name: 'Confirm',
           type: 'line',
-          data: chartdata.map((x) => x.confirmed).reverse(),
+          data: chartdata.map((x) => x.confirmed),
           triggerEvent: true,
         },
         {
           name: 'Recovery',
           type: 'line',
-          data: chartdata.map((x) => x.recovered).reverse(),
+          data: chartdata.map((x) => x.recovered),
         },
         {
           name: 'Death',
           type: 'line',
-          data: chartdata.map((x) => x.deaths).reverse(),
+          data: chartdata.map((x) => x.deaths),
         },
         {
-          name: 'ThreMonth',
+          name: 'ThreeMonths',
           type: 'line',
           data: '',
         },
@@ -125,17 +125,17 @@ export class ChartComponent implements OnInit, OnChanges, AfterViewInit {
       },
 
       legend: {
-        data: ['Confirm', 'Recovery', 'Death', 'ThreMonth', 'FullTime'],
+        data: ['Confirm', 'Recovery', 'Death', 'ThreeMonths', 'FullTime'],
         itemWidth: 10,
         selected: {
-          ThreMonth: mmonth,
+          ThreeMonths: mmonth,
           FullTime: FullTime == null ? true : FullTime,
         },
       },
 
       xAxis: {
         type: 'category',
-        data: chartdata.map((x) => x.date).reverse(),
+        data: chartdata.map((x) => x.date),
       },
       yAxis: {
         type: 'value',
@@ -144,20 +144,20 @@ export class ChartComponent implements OnInit, OnChanges, AfterViewInit {
         {
           name: 'Confirm',
           type: 'bar',
-          data: chartdata.map((x) => x.new_confirmed).reverse(),
+          data: chartdata.map((x) => x.new_confirmed),
         },
         {
           name: 'Recovery',
           type: 'bar',
-          data: chartdata.map((x) => x.new_recovered).reverse(),
+          data: chartdata.map((x) => x.new_recovered),
         },
         {
           name: 'Death',
           type: 'bar',
-          data: chartdata.map((x) => x.new_deaths).reverse(),
+          data: chartdata.map((x) => x.new_deaths),
         },
         {
-          name: 'ThreMonth',
+          name: 'ThreeMonths',
           type: 'bar',
           data: '',
         },
@@ -168,6 +168,7 @@ export class ChartComponent implements OnInit, OnChanges, AfterViewInit {
         },
       ],
     };
+
     myChart.on('legendselectchanged', (params: any) => {
       this.filterData(params, myChart, chartDom, chartdata);
     });
@@ -181,6 +182,8 @@ export class ChartComponent implements OnInit, OnChanges, AfterViewInit {
 
   // მიმდინარე როურის შემოწმება და chart-ის გენერაცია
   checkRoute(data: Timeline[]) {
+    // როუტიდან პარამეტრის ვიღებთ რათა გავარკვიოთ რომელ pege-ზე ვიმყოფეიბით,
+    // რომ შესაბამისი chart-ი დავაგენერიროთ
     this.store.pipe(select(selectRouteParams)).subscribe((params: Params) => {
       if (params.date) {
         this.genereteLineChart(data);
@@ -218,10 +221,10 @@ export class ChartComponent implements OnInit, OnChanges, AfterViewInit {
     let selectedFull;
 
     // ფილტრაცია სამ თვეზე
-    if (params.name === 'ThreMonth') {
+    if (params.name === 'ThreeMonths') {
       myChart.clear();
       const data = chartdata.slice(0, 90);
-      selectedMonth = params.selected.ThreMonth = true;
+      selectedMonth = params.selected.ThreeMonths = true;
       selectedFull = params.selected.FullTime = false;
       if (chartDom.id === 'main') {
         this.genereteLineChart(data, selectedMonth, selectedFull);
@@ -230,7 +233,7 @@ export class ChartComponent implements OnInit, OnChanges, AfterViewInit {
       }
     } else if (params.name === 'FullTime') {
       myChart.clear();
-      selectedMonth = params.selected.ThreMonth = false;
+      selectedMonth = params.selected.ThreeMonths = false;
       selectedFull = params.selected.FullTime = true;
       if (chartDom.id === 'main') {
         this.genereteLineChart(this.chartData, selectedMonth, selectedFull);

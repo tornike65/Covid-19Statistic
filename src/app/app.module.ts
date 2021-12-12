@@ -4,7 +4,7 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { HttpService } from 'src/app/services/http.service';
+import { HttpService } from '../app/services/http.service';
 import { ChartComponent } from './chart/chart.component';
 import { HomeComponent } from './home/home.component';
 import { NavigationComponent } from './navigation/navigation.component';
@@ -25,6 +25,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
+import { ThousandSuffixPipe } from './pipes/thousand-suffix.pipe';
 @NgModule({
   declarations: [
     AppComponent,
@@ -32,6 +33,7 @@ import { MatNativeDateModule } from '@angular/material/core';
     HomeComponent,
     NavigationComponent,
     CountriesComponent,
+    ThousandSuffixPipe
   ],
   imports: [
     BrowserModule,

@@ -2,7 +2,7 @@
   width: 100%;
 }
 
-#main {
+.line-chart, .bar-chart {
   margin-top: 60px;
   height: 500px;
   margin: 60px 0px 0px;
@@ -11,12 +11,4 @@
   border-radius: 10px;
   padding: 30px 10px;
 }
-#main2 {
-  margin-top: 60px;
-  height: 500px;
-  margin: 60px 0px 0px;
-  box-shadow: 0 0.5rem 1rem rgb(0 0 0 / 15%);
-  background: #fff;
-  border-radius: 10px;
-  padding: 30px 10px;
-}
+

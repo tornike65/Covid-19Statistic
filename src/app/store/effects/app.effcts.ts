@@ -19,7 +19,7 @@ export class AppEffects {
           .getStatisticByTime()
           .pipe(
             map((response) =>
-              CoronaApiActions.getTimelineSuccses({ timeline: response.data }),
+              CoronaApiActions.getTimelineSuccsess({ timeline: response.data }),
             ),
           ),
       ),
@@ -40,7 +40,7 @@ export class AppEffects {
           .getCountriesInfo()
           .pipe(
             map((response) =>
-              CoronaApiActions.getCountriesSuccses({
+              CoronaApiActions.getCountriesSuccsess({
                 countries: response.data,
               }),
             ),
@@ -61,7 +61,7 @@ export class AppEffects {
       concatMap((action) =>
         this.httpService.getcountryByCode(action.countryCode).pipe(
           map((response) =>
-            CoronaApiActions.getCountryByCodeSuccses({
+            CoronaApiActions.getCountryByCodeSuccsess({
               country: response.data,
             }),
           ),

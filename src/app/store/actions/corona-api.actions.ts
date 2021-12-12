@@ -1,9 +1,9 @@
 import { createAction, props } from '@ngrx/store';
-import { Country } from 'src/app/models/Countries.model';
-import { Timeline } from 'src/app/models/Timeline.model';
+import { Country } from '../../models/Countries.model';
+import { Timeline } from '../../models/Timeline.model';
 
-export const getTimelineSuccses = createAction(
-  '[Corona Api] Get Timeline Succses',
+export const getTimelineSuccsess = createAction(
+  '[Corona Api] Get Timeline Succsess',
   props<{ timeline: Timeline[] }>(),
 );
 
@@ -12,8 +12,8 @@ export const getTimelineFailed = createAction(
   props<{ message: string }>(),
 );
 
-export const getCountriesSuccses = createAction(
-  '[Corona Api] Get Countries Succses',
+export const getCountriesSuccsess = createAction(
+  '[Corona Api] Get Countries Succsess',
   props<{ countries: Country[] }>(),
 );
 
@@ -22,11 +22,11 @@ export const getCountriesfailed = createAction(
   props<{ message: string }>(),
 );
 
-export const getCountryByCodeSuccses = createAction(
-  '[Corona Api] Get Country By Code Succses',
+export const getCountryByCodeSuccsess = createAction(
+  '[Corona Api] Get Country By Code Succsess',
   props<{ country: Country }>(),
 );
 export const getCountryByCodeFailed = createAction(
-  '[Corona Api] Get  Country By Code Failed',
+  '[Corona Api] Get Country By Code Failed',
   props<{ message: string }>(),
 );
